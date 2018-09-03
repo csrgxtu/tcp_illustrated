@@ -77,9 +77,10 @@ def terminal():
           try:
               packet = sock.recv(BUF_SIZE)
               dmac = DMAC(packet)
+              smac = SMAC(packet)
               payload = Payload(packet)
-              if dmac == '000c2963f6c6':
-                print 'received packet from {}'.format(dmac)
+              if smac == '000c2963f6c6':
+                print 'received packet from {}'.format(smac)
                 print 'payload: {}'.format(payload)
           except socket.error:
               pass
