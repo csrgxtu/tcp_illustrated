@@ -64,8 +64,6 @@ def terminal():
    sock.setblocking(0)
 
    # Contents of packet to send (constant)
-   print binascii.unhexlify(opts.rmac)
-   print binascii.unhexlify(opts.rmac)
    sendPacket = binascii.unhexlify(opts.rmac) + binascii.unhexlify(opts.lmac) + \
        b'\x88\xb5' + b'\x00\x01\x02\    x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
 
@@ -82,7 +80,9 @@ def terminal():
          pass
       else:
          dmac = DMAC(packet)
-         printPacket(packet, now, "Received:")
+         if dmac == '005056c00008':
+             print 'received packet from {}'.format(dmac)
+        #  printPacket(packet, now, "Received:")
 
       if not opts.receiveOnly:
          if now > lastTime + interval:
