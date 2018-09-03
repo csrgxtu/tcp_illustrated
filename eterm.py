@@ -79,10 +79,11 @@ def terminal():
               packet = sock.recv(BUF_SIZE)
               dmac = DMAC(packet)
               smac = SMAC(packet)
+              ether_type = EtherType(packet)
               payload = Payload(packet)
               if smac == '000c2963f6c6':
                 print 'received packet from {}'.format(smac)
-                print 'payload: {}'.format(payload)
+                print 'payload: {}'.format(ether_type)
           except socket.error:
               pass
           time.sleep(0.001001)
