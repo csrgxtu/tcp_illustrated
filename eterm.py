@@ -81,7 +81,7 @@ def terminal():
               smac = SMAC(packet)
               ether_type = EtherType(packet)
               payload = Payload(packet)
-              if smac == '000c2963f6c6':
+              if smac == '000c2963f6c6' and ether_type == '88b5:
                 print 'received packet from {}'.format(smac)
                 print 'ether_type: {}'.format(ether_type)
                 print 'payload: {}'.format(payload)
