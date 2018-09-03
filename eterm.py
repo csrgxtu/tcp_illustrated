@@ -81,7 +81,8 @@ def terminal():
           try:
               packet = sock.recv(BUF_SIZE)
               dmac = DMAC(packet)
-              print 'received packet from {}'.format(dmac)
+              if dmac == '000c2963f6c6':
+                print 'received packet from {}'.format(dmac)
           except socket.error:
               pass
       time.sleep(0.001001)
