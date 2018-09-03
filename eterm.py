@@ -70,14 +70,11 @@ def terminal():
 
 
    # Repeat sending and receiving packets
-   interval = 1
-   lastTime = time.time()
-   while True:
-    #   now = time.time()
-      if opts.sendOnly:
-          sendBytes = sock.send(sendPacket)
-          print 'send packet to {} from {}'.format(opts.rmac, opts.lmac)
-      elif opts.receiveOnly:
+   if opts.sendOnly:
+      sendBytes = sock.send(sendPacket)
+      print 'send packet to {} from {}'.format(opts.rmac, opts.lmac)
+   elif opts.receiveOnly:
+       while True:
           try:
               packet = sock.recv(BUF_SIZE)
               dmac = DMAC(packet)
@@ -85,27 +82,6 @@ def terminal():
                 print 'received packet from {}'.format(dmac)
           except socket.error:
               pass
-      time.sleep(0.001001)
-
-
-    #   try:
-    #      packet = sock.recv(BUF_SIZE)
-    #   except socket.error:
-    #      pass
-    #   else:
-    #      dmac = DMAC(packet)
-    #      if dmac == '000c2963f6c6':
-    #          print 'received packet from {}'.format(dmac)
-    #     #  printPacket(packet, now, "Received:")
-
-    #   if not opts.receiveOnly:
-    #      if now > lastTime + interval:
-    #         sendBytes = sock.send(sendPacket)
-    #         printPacket(sendPacket, now, "Sent:   ")
-    #         lastTime = now
-    #      else:
-    #         time.sleep(0.001001)
-    #   else:
-    #      time.sleep(0.001001)
+          time.sleep(0.001001)
 
 terminal()
