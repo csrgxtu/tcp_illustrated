@@ -66,7 +66,7 @@ def terminal():
    sock.setblocking(0)
 
    # Contents of packet to send (constant)
-   sendPacket = binascii.unhexlify(opts.rmac) + binascii.unhexlify(opts.lmac) + b'\x88\xb5' + b'hello'
+   sendPacket = binascii.unhexlify(opts.rmac) + binascii.unhexlify(opts.lmac) + b'\x88\xb5' + b'hello word, ya!!!'
 
 
    # Repeat sending and receiving packets
