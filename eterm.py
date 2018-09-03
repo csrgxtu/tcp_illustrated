@@ -14,7 +14,7 @@ ETH_P_ALL = 3		# To receive all Ethernet protocols
 # Interface = "eth0"
 Interface = "ens33"
 
-host = socket.gethostbyname(socket.gethostname())
+# host = socket.gethostbyname(socket.gethostname())
 
 
 ### Packet field access ###
