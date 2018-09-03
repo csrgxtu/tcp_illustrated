@@ -29,7 +29,8 @@ def EtherType(packet):
    return binascii.hexlify(packet[12:14]).decode()
 
 def Payload(packet):
-   return binascii.hexlify(packet[14:]).decode()
+#    return binascii.hexlify(packet[14:]).decode()
+   return packet[14:]
 
 
 ### Packet handler ###
