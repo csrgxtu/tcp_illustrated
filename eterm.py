@@ -65,8 +65,7 @@ def terminal():
    sock.setblocking(0)
 
    # Contents of packet to send (constant)
-   sendPacket = binascii.unhexlify(opts.rmac) + binascii.unhexlify(opts.lmac) + \
-       b'\x88\xb5' + binascii.hexlify(b'hello')
+   sendPacket = binascii.unhexlify(opts.rmac) + binascii.unhexlify(opts.lmac) + b'\x88\xb5' + binascii.hexlify(b'hello')
 
 
    # Repeat sending and receiving packets
@@ -78,8 +77,10 @@ def terminal():
           try:
               packet = sock.recv(BUF_SIZE)
               dmac = DMAC(packet)
+              payload = Payload(packet)
               if dmac == '000c2963f6c6':
                 print 'received packet from {}'.format(dmac)
+                print 'payload: {}'.format(payload)
           except socket.error:
               pass
           time.sleep(0.001001)
