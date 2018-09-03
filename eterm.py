@@ -54,6 +54,7 @@ def terminal():
                      help = "Remote MAC address")
    parser.add_option("--receiveOnly", "--receiveonly",
                      dest = "receiveOnly", action = "store_true")
+   parser.add_option("--sendOnly", "--sendonly", dest = "sendOnly", action="store_true")
    # parser.add_option("--promiscuous", dest = "promiscuous", action = "store_true")
    parser.set_defaults(lmac = "ffffffffffff", rmac = "ffffffffffff")
    opts, args = parser.parse_args()
@@ -72,26 +73,38 @@ def terminal():
    interval = 1
    lastTime = time.time()
    while True:
-      now = time.time()
+    #   now = time.time()
+      if opts.sendOnly:
+          sendBytes = sock.send(sendPacket)
+          print 'send packet to {} from {}'.format(opts.rmac, opts.lmac)
+      elif opts.receiveOnly:
+          try:
+              packet = sock.recv(BUF_SIZE)
+              dmac = DMAC(packet)
+              print 'received packet from {}'.format(dmac)
+          except socket.error:
+              pass
+      time.sleep(0.001001)
 
-      try:
-         packet = sock.recv(BUF_SIZE)
-      except socket.error:
-         pass
-      else:
-         dmac = DMAC(packet)
-         if dmac == '005056c00008':
-             print 'received packet from {}'.format(dmac)
-        #  printPacket(packet, now, "Received:")
 
-      if not opts.receiveOnly:
-         if now > lastTime + interval:
-            sendBytes = sock.send(sendPacket)
-            printPacket(sendPacket, now, "Sent:   ")
-            lastTime = now
-         else:
-            time.sleep(0.001001)
-      else:
-         time.sleep(0.001001)
+    #   try:
+    #      packet = sock.recv(BUF_SIZE)
+    #   except socket.error:
+    #      pass
+    #   else:
+    #      dmac = DMAC(packet)
+    #      if dmac == '000c2963f6c6':
+    #          print 'received packet from {}'.format(dmac)
+    #     #  printPacket(packet, now, "Received:")
+
+    #   if not opts.receiveOnly:
+    #      if now > lastTime + interval:
+    #         sendBytes = sock.send(sendPacket)
+    #         printPacket(sendPacket, now, "Sent:   ")
+    #         lastTime = now
+    #      else:
+    #         time.sleep(0.001001)
+    #   else:
+    #      time.sleep(0.001001)
 
 terminal()
