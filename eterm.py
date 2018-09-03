@@ -29,8 +29,8 @@ def EtherType(packet):
    return binascii.hexlify(packet[12:14]).decode()
 
 def Payload(packet):
-#    return binascii.hexlify(packet[14:]).decode()
-   return packet[14:]
+   return binascii.hexlify(packet[14:]).decode()
+
 
 
 ### Packet handler ###
@@ -83,7 +83,8 @@ def terminal():
               payload = Payload(packet)
               if smac == '000c2963f6c6':
                 print 'received packet from {}'.format(smac)
-                print 'payload: {}'.format(ether_type)
+                print 'ether_type: {}'.format(ether_type)
+                print 'payload: {}'.format(payload)
           except socket.error:
               pass
           time.sleep(0.001001)
